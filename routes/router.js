@@ -114,7 +114,8 @@ router.post("/addUser", async (req, res) => {
       password_salt: password_salt.digest("hex"),
       password_hash: password_hash.digest("hex"),
     };
-    await newUser.db.collection.insertOne(newUser);
+    const userCollection = database.db("lab_example").collection("users");
+    await userCollection.insertOne(newUser);
     console.log(newUser);
     // await newUser.save();
     res.redirect("/");
