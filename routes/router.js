@@ -1,5 +1,5 @@
 const router = require("express").Router();
-//const database = include('databaseConnection');
+const database = include("databaseConnection");
 //const dbModel = include('databaseAccessLayer');
 //const dbModel = include('staticData');
 
