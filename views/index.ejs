@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"> </script>
+	</head>
+	<body>
+		<section class="section">
+			<div class="maincolumns columns is-desktop is-vcentered">
+				<div class="column is-10 is-offset-1 notification is-info is-light box container">
+					<div class="title">
+						Web Users
+					</div>
+					<% if (locals.allUsers) { %>
+						<div class="table-container">
+						<table class="table is-bordered is-hoverable is-striped is-narrow">
+							<thead>
+							<tr>
+								<th> First Name </th>
+								<th> Last Name </th>
+								<th> Email </th>
+								<th> &nbsp; </th>
+								<th> &nbsp; </th>
+							</tr>
+							</thead>
+							<% let i=0; %>
+							<% for(i=0; i < allUsers.length; i++) { %>
+							<tr>
+								<td><%= allUsers[i].first_name %></td>
+								<td><%= allUsers[i].last_name %></td>
+								<td><%= allUsers[i].email %></td>
+								<td><a href="/deleteUser?id=<%= allUsers[i].web_user_id %>">
+									<span class="icon is-small">
+										<i class="fas fa-user-times"></i>
+									</span></a>
+								</td>
+								<td><a href="/showPets?id=<%= allUsers[i].web_user_id %>">
+									<span class="icon is-small">
+										<i class="fas fa-paw"></i>
+									</span></a>
+								</td>
+							</tr>
+							<% } %>
+							<tfoot>
+								<tr> <td colspan="5">
+								There are <%= i %> users.
+								</td> </tr>
+							</tfoot>
+						</table>
+						</div>
+					<% } %>
+
+					<form action="addUser" method="post">
+						<div class="field is-horizontal">
+						  <div class="field-label is-normal">
+							<label class="label">Add New User</label>
+						  </div>
+						  <div class="field-body">
+							<div class="field">
+							  <p class="control is-expanded">
+								<input name="first_name" class="input" type="text" placeholder="First Name">
+							  </p>
+							</div>
+							<div class="field">
+							  <p class="control is-expanded">
+								<input name="last_name" class="input" type="text" placeholder="Last Name">
+							  </p>
+							</div>
+							<div class="field">
+							  <p class="control is-expanded">
+								<input name="email" class="input" type="email" placeholder="Email">
+							  </p>
+							</div>
+							<div class="field">
+							  <p class="control is-expanded">
+								<input name="password" class="input" type="password" placeholder="Password">
+							  </p>
+							</div>
+							<div class="field">
+								<button class="button is-link">
+									<span>Add</span>
+									<span class="icon is-small">
+										<i class="fas fa-user-plus"></i>
+									</span>
+								</button>
+							</div>
+						  </div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
