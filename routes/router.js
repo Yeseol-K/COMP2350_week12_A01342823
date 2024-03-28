@@ -85,6 +85,7 @@ router.get("/deleteUser", async (req, res) => {
       // if (deleteUser !== null) {
       //   await deleteUser.destroy();
       // }
+      return deleteUser(userId);
     }
     res.redirect("/");
   } catch (ex) {
@@ -106,14 +107,15 @@ router.post("/addUser", async (req, res) => {
 
     password_hash.update(req.body.password + passwordPepper + password_salt);
 
-    let newUser = userModel.build({
+    let newUser = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: req.body.email,
       password_salt: password_salt.digest("hex"),
       password_hash: password_hash.digest("hex"),
-    });
+    };
     await newUser.db.collection.insertOne(newUser);
+    console.log(newUser);
     // await newUser.save();
     res.redirect("/");
   } catch (ex) {
