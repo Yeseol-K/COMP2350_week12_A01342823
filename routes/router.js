@@ -7,6 +7,7 @@ const database = include("databaseConnection");
 // const petModel = include('models/pet');
 
 const crypto = require("crypto");
+const { ObjectId } = require("mongodb");
 const { v4: uuid } = require("uuid");
 
 const passwordPepper = "SeCretPeppa4MySal+";
@@ -77,15 +78,17 @@ router.get("/deleteUser", async (req, res) => {
     console.log("delete user");
 
     let userId = req.query.id;
+    console.log(`userId: ${userId}`);
     if (userId) {
+      const userCollection = database.db("lab_example").collection("users");
       console.log("userId: " + userId);
-      let deleteUser = await userModel.findByPk(userId);
+      let deleteUser = await userCollection.deleteOne({ _id: new ObjectId(userId) });
       console.log("deleteUser: ");
       console.log(deleteUser);
       // if (deleteUser !== null) {
-      //   await deleteUser.destroy();
+      // 	await deleteUser.destroy();
       // }
-      return deleteUser(userId);
+      //const result = await userCollection.insertOne(newUser);
     }
     res.redirect("/");
   } catch (ex) {
